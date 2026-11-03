@@ -1,0 +1,62 @@
+/* 统一盒模型与原生控件字体。保留明确的键盘焦点，方便实际操作学习实验。 */
+* {
+    /* width/height 包含 padding 与 border，布局时更容易按外部尺寸分配空间；margin 仍在盒子之外。 */
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+}
+button,
+input,
+select,
+textarea {
+    /* 原生表单控件默认不一定继承页面字体，这里显式统一。 */
+    font: inherit;
+}
+button,
+a,
+input,
+select,
+textarea {
+    -webkit-tap-highlight-color: transparent;
+}
+button {
+    cursor: pointer;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+    /* :focus-visible 由浏览器决定何时展示焦点，保留键盘导航提示，而不是一律去掉 outline。 */
+    outline: 3px solid var(--primary-border);
+    outline-offset: 3px;
+}
+svg {
+    /* 图标通常位于 Flex 行内，禁止收缩以免窄屏时被文字挤扁；此设置不决定整行的溢出策略。 */
+    flex-shrink: 0;
+    vertical-align: middle;
+}
+h1,
+h2,
+h3,
+h4,
+p {
+    margin-top: 0;
+}
+button {
+    color: inherit;
+}
+::selection {
+    background: var(--primary-border);
+    color: var(--text);
+}

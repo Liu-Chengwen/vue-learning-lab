@@ -1,0 +1,49 @@
+{
+  "name": "basiclearning",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "format": "prettier --write src tests scripts examples vite.config.js vitest.config.js",
+    "format:check": "prettier --check src tests scripts examples vite.config.js vitest.config.js",
+    "webpack:dev": "webpack serve --config examples/webpack/webpack.config.cjs --mode development",
+    "webpack:build": "webpack --config examples/webpack/webpack.config.cjs --mode production",
+    "mock:api": "node scripts/mock-api.mjs",
+    "build:report": "vite build && node scripts/build-report.mjs",
+    "check": "pnpm test && pnpm build && pnpm webpack:build"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.2",
+    "@vue/compiler-dom": "^3.5.44",
+    "element-plus": "^2.14.7",
+    "lucide-vue-next": "npm:@lucide/vue@^1.61.0",
+    "pinia": "^4.1.0",
+    "vue": "^3.5.44",
+    "vue-router": "^5.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.7",
+    "@vue/test-utils": "^2.5.1",
+    "css-loader": "^7.1.5",
+    "happy-dom": "^21.0.4",
+    "html-webpack-plugin": "^5.6.8",
+    "less": "^4.9.1",
+    "prettier": "^3.9.10",
+    "style-loader": "^4.0.0",
+    "vite": "^8.0.16",
+    "vite-plugin-vue-devtools": "^8.1.2",
+    "vitest": "^5.0.5",
+    "vue-loader": "^17.4.2",
+    "webpack": "^5.112.1",
+    "webpack-cli": "^7.2.3",
+    "webpack-dev-server": "^6.1.0"
+  },
+  "engines": {
+    "node": "^22.18.0 || >=24.12.0"
+  }
+}
