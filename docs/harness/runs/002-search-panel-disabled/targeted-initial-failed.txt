@@ -1,0 +1,27 @@
+
+ RUN  v5.0.5 /Users/avidliu/Documents/Web Project/Learning/basicLearning
+
+ ❯ tests/ui-library-search.spec.js (1 test | 1 failed) 185ms
+   ❯ 组件库 SearchPanel 禁用示例 (1)
+     × 开关控制内置输入框与真实插槽选择器，保留值且查询重置仍有效 185ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/ui-library-search.spec.js > 组件库 SearchPanel 禁用示例 > 开关控制内置输入框与真实插槽选择器，保留值且查询重置仍有效
+TypeError: Cannot read properties of undefined (reading 'vm')
+ ❯ tests/ui-library-search.spec.js:46:16
+     44|             .findAllComponents(ElSwitch)
+     45|             .find((item) => item.attributes("aria-label") === "禁用搜索字段"…
+     46|         toggle.vm.$emit("update:modelValue", true);
+       |                ^
+     47|         await wrapper.vm.$nextTick();
+     48|         expect(panel.get("#search-query").element.disabled).toBe(true);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 8 passed (9)
+   Start at  20:25:14
+   Duration  1.21s (import 47%, tests 24%, environment 16%, transform 13%)
+

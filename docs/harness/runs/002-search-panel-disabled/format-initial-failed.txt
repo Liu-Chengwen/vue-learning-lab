@@ -1,0 +1,6 @@
+[command] ["pnpm","format:check"]
+$ prettier --check src tests scripts examples tools .agents/skills AGENTS.md vite.config.js vitest.config.js
+Checking formatting...
+[warn] tests/ui-library-search.spec.js
+[warn] Code style issues found in the above file. Run Prettier with --write to fix.
+[ELIFECYCLE] Command failed with exit code 1.

@@ -1,6 +1,11 @@
 import { computed, ref, watch } from "vue";
 import { defineStore } from "pinia";
 
+function restoreIds(value) {
+    // Set 按插入顺序去重；保留所有字符串 ID，不依赖当前目录是否仍收录它们。
+    return Array.isArray(value) ? [...new Set(value.filter((id) => typeof id === "string"))] : [];
+}
+
 /**
  * 应用级学习记录：完成专题、收藏题目、自评掌握和最近访问都按稳定 ID/路径保存。
  * 页面通过 action 修改，computed 负责派生展示；它们与任务工作台的数据相互独立。
@@ -15,9 +20,9 @@ export const useLearningStore = defineStore("learning", () => {
     }
     // 恢复时先检查容器和成员类型；不从 localStorage 恢复组件实例或可执行函数。
     // ID 比显示标题稳定：调整文案不需要连带修改收藏和完成记录。
-    const completed = ref(Array.isArray(saved.completed) ? saved.completed.filter((v) => typeof v === "string") : []);
-    const favorites = ref(Array.isArray(saved.favorites) ? saved.favorites.filter((v) => typeof v === "string") : []);
-    const mastered = ref(Array.isArray(saved.mastered) ? saved.mastered.filter((v) => typeof v === "string") : []);
+    const completed = ref(restoreIds(saved.completed));
+    const favorites = ref(restoreIds(saved.favorites));
+    const mastered = ref(restoreIds(saved.mastered));
     const recent = ref(
         Array.isArray(saved.recent)
             ? saved.recent.filter((v) => v && typeof v.path === "string" && typeof v.title === "string").slice(0, 5)

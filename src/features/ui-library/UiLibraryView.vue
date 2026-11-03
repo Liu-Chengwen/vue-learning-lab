@@ -55,6 +55,7 @@ const selectedTags = ref(["Vue 3"]);
 const radius = ref(8);
 // 与业务页一致，编辑中的搜索条件和已应用条件分开保存，重置走相同的 apply 契约。
 const filters = ref({ query: "", priority: "" });
+const fieldsDisabled = ref(false);
 const appliedFilters = ref({ query: "", priority: "" });
 const page = ref(1);
 const pageSize = ref(5);
@@ -69,10 +70,16 @@ const tabs = [
     { id: "wrappers", title: "业务组件封装", icon: Code2 },
     { id: "ant", title: "Ant Design Vue 对照", icon: Globe2 }
 ];
-const fields = [
-    { key: "query", label: "任务标题", type: "input", placeholder: "输入关键词，点击查询" },
-    { key: "priority", label: "优先级", type: "select", options: taskPriorities }
-];
+const fields = computed(() => [
+    {
+        key: "query",
+        label: "任务标题",
+        type: "input",
+        placeholder: "输入关键词，点击查询",
+        disabled: fieldsDisabled.value
+    },
+    { key: "priority", label: "优先级", type: "select", options: taskPriorities, disabled: fieldsDisabled.value }
+]);
 // 第二个使用场景依然消费真实任务，只改变字段配置、列和插槽，检验封装的复用边界。
 const rows = computed(() =>
     tasks.tasks.filter(
@@ -107,9 +114,9 @@ function toggleStatus(row) {
 const contracts = {
     SearchPanel: {
         purpose: "组合搜索字段，值由使用方持有。",
-        props: "modelValue: Object · fields: Array · defaults: Object · loading: Boolean",
+        props: "modelValue: Object · fields: Array（字段可配置 disabled） · defaults: Object · loading: Boolean",
         events: "update:modelValue(value) · submit(value) · reset(value)",
-        slots: "field-{key}({ value, update }) · actions",
+        slots: "field-{key}({ value, update, disabled }) · actions",
         expose: "submit() · reset()"
     },
     DataTable: {
@@ -328,15 +335,20 @@ interface DataTableProps<Row extends { id: string }> {
                         ><Plus :size="14" /> 试用表单弹窗</ElButton
                     ></div
                 ><div class="panel-body stack"
+                    ><label class="row"
+                        ><ElSwitch v-model="fieldsDisabled" aria-label="禁用搜索字段" />
+                        禁用搜索字段（保留当前值）</label
+                    ><p class="muted">开关同时控制任务标题和自定义优先级控件；查询仍提交当前条件，重置仍恢复默认值。</p
                     ><SearchPanel
                         v-model="filters"
                         :fields="fields"
                         :defaults="{ query: '', priority: '' }"
                         @submit="apply"
                         @reset="apply"
-                        ><template #field-priority="{ value, update }"
+                        ><template #field-priority="{ value, update, disabled }"
                             ><ElSelect
                                 :model-value="value"
+                                :disabled="disabled"
                                 placeholder="自定义字段插槽"
                                 clearable
                                 @update:model-value="update"

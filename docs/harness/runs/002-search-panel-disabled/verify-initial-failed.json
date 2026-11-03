@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-11-03T12-26-02-032Z-00085d91",
+  "root": "/Users/avidliu/Documents/Web Project/Learning/basicLearning",
+  "git": {
+    "head": "5cc23e53cf4686357424b27434fc305e62084846",
+    "dirty": true,
+    "error": null
+  },
+  "startedAt": "2026-11-03T12:26:02.032Z",
+  "finishedAt": "2026-11-03T12:26:03.589Z",
+  "durationMs": 1557,
+  "status": "failed",
+  "exitCode": 1,
+  "checks": [
+    {
+      "name": "format:check",
+      "command": "pnpm",
+      "args": [
+        "format:check"
+      ],
+      "status": "failed",
+      "startedAt": "2026-11-03T12:26:02.054Z",
+      "finishedAt": "2026-11-03T12:26:03.589Z",
+      "durationMs": 1535,
+      "exitCode": 1,
+      "signal": null,
+      "error": "命令退出码 1",
+      "skipReason": null,
+      "logPath": "/Users/avidliu/Documents/Web Project/Learning/basicLearning/.harness-artifacts/verify/2026-11-03T12-26-02-032Z-00085d91/01.log"
+    },
+    {
+      "name": "test",
+      "command": "pnpm",
+      "args": [
+        "test"
+      ],
+      "status": "skipped",
+      "startedAt": null,
+      "finishedAt": null,
+      "durationMs": 0,
+      "exitCode": null,
+      "signal": null,
+      "error": null,
+      "skipReason": "前序检查未通过",
+      "logPath": null
+    },
+    {
+      "name": "build",
+      "command": "pnpm",
+      "args": [
+        "build"
+      ],
+      "status": "skipped",
+      "startedAt": null,
+      "finishedAt": null,
+      "durationMs": 0,
+      "exitCode": null,
+      "signal": null,
+      "error": null,
+      "skipReason": "前序检查未通过",
+      "logPath": null
+    },
+    {
+      "name": "webpack:build",
+      "command": "pnpm",
+      "args": [
+        "webpack:build"
+      ],
+      "status": "skipped",
+      "startedAt": null,
+      "finishedAt": null,
+      "durationMs": 0,
+      "exitCode": null,
+      "signal": null,
+      "error": null,
+      "skipReason": "前序检查未通过",
+      "logPath": null
+    }
+  ]
+}

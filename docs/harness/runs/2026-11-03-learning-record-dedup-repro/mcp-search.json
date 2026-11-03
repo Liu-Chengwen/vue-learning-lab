@@ -1,0 +1,55 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\n  \"query\": \"学习记录\",\n  \"totalMatches\": 7,\n  \"results\": [\n    {\n      \"path\": \"docs/learning-guide.md\",\n      \"section\": \"7. 学习记录、重置与验证\",\n      \"startLine\": 176,\n      \"endLine\": 184,\n      \"excerpt\": \"## 7. 学习记录、重置与验证\\n\\n任务、学习标记和主题偏好分别保存在当前浏览器 localStorage。换浏览器或换 origin 不会自动同步。学习总览的“重置学习记录”清理完成、收藏、自评和访问记录；任务示例由工作台单独恢复。\\n\\n实验的“重置”用于恢复该实验状态或取消工作；浏览器刷新会重新创建大部分实验局部状态，模块级内存状态和 Pinia 实验状态也随应用重新启动。任务工作台的持久化状态则会恢复。\\n\\n修改后至少验证与你的改动有关的路径。项目测试覆盖关键通信、数据隔离、请求竞态、取消、类与 API 语义及目录连通性；它们不能代替浏览器的 CSS 尺寸、焦点和实际热更新观察。\\n\\n面试回答可以用四句话组织：**具体触发了什么 → 实际观察到什么 → 背后的机制 → 我在项目中如何选择和处理边界**。最后使用 `/interview` 随机抽题，隐藏答案口述，再展开核对。\",\n      \"truncated\": true\n    },\n    {\n      \"path\": \"docs/ai-harness-plan.md\",\n      \"section\": \"5. 第一轮：修复学习记录恢复时的重复 ID\",\n      \"startLine\": 58,\n      \"endLine\": 62,\n      \"excerpt\": \"## 5. 第一轮：修复学习记录恢复时的重复 ID\\n\\n[learning.js](../src/stores/learning.js) 恢复 completed、favorites、mastered 时只过滤非字符串，没有去重；completedCount 使用数组长度，toggle 每次只删除一个匹配项。\\n\\n例如恢复 `completed: [\\\"vue-setup\\\", \\\"vue-setup\\\"]` 时，存在重复计数和取消后残留的风险。正式实施先用测试复现；当前尚未执行该复现测试。\",\n      \"truncated\": true\n    },\n    {\n      \"path\": \"docs/harness/tasks/001-learning-record-dedup.md\",\n      \"section\": \"HARNESS-001：学习记录恢复去重\",\n      \"startLine\": 1,\n      \"endLine\": 3,\n      \"excerpt\": \"# HARNESS-001：学习记录恢复去重\\n\\n状态：Skill、只读 MCP 和统一校验前置条件已就绪，待阶段 5 执行。当前仅做过只读诊断，尚未修改 store 或新增本任务回归测试。\",\n      \"truncated\": true\n    },\n    {\n      \"path\": \"docs/ai-harness-plan.md\",\n      \"section\": \"4. 阶段安排\",\n      \"startLine\": 51,\n      \"endLine\": 56,\n      \"excerpt\": \"| 3：只读 MCP | 使用 Node.js ESM 与 MCP SDK 建立本地 stdio 服务，接入宿主 | 服务、协议测试、接入说明 | 客户端能发现并调用工具，AI 会话得到真实查询结果 |\\n| 4：统一校验 | 增加 `pnpm harness:verify`，汇总已有检查并记录结果 | 校验脚本、结果报告 | 必需检查失败则整体非零退出；跳过和通过分别记录 |\\n| 5：真实修复闭环 | 通过 Skill 和 MCP 定位学习记录问题，先复现再修复与审查 | 回归测试、最小修复、运行记录 | 能展示修复前失败、修复后通过及完整校验结果 |\\n| 6：需求开发与复盘 | 增加 SearchPanel 字段级禁用能力，验证 feature-dev 的真实开发流程，整理演示 | 第二个案例、演示步骤、复盘 | 真实需求按同一流程完成，说明已验证能力和改进方向 |\\n\\n按阶段推进。检查发现问题时先处理或记录阻塞，不把尚未执行的步骤标为完成。发布、远程操作和全局配置变更根据实际任务授权单独处理。\",\n      \"truncated\": true\n    },\n    {\n      \"path\": \"docs/ai-harness-plan.md\",\n      \"section\": \"执行链路\",\n      \"startLine\": 73,\n      \"endLine\": 77,\n      \"excerpt\": \"### 执行链路\\n\\n任务输入 → 调用问题排查 Skill → MCP 检索学习记录与状态说明 → 阅读实际 store → 新增行为测试 → 观察失败 → 最小修复 → 定向测试 → 完整校验 → 审查 Skill → 输出差异和证据。\\n\\n保留 MCP 调用结果、失败测试输出、修复差异、通过结果与审查结论。测试使用独立存储环境。\",\n      \"truncated\": true\n    }\n  ],\n  \"unavailableDocuments\": []\n}"
+    }
+  ],
+  "structuredContent": {
+    "query": "学习记录",
+    "totalMatches": 7,
+    "results": [
+      {
+        "path": "docs/learning-guide.md",
+        "section": "7. 学习记录、重置与验证",
+        "startLine": 176,
+        "endLine": 184,
+        "excerpt": "## 7. 学习记录、重置与验证\n\n任务、学习标记和主题偏好分别保存在当前浏览器 localStorage。换浏览器或换 origin 不会自动同步。学习总览的“重置学习记录”清理完成、收藏、自评和访问记录；任务示例由工作台单独恢复。\n\n实验的“重置”用于恢复该实验状态或取消工作；浏览器刷新会重新创建大部分实验局部状态，模块级内存状态和 Pinia 实验状态也随应用重新启动。任务工作台的持久化状态则会恢复。\n\n修改后至少验证与你的改动有关的路径。项目测试覆盖关键通信、数据隔离、请求竞态、取消、类与 API 语义及目录连通性；它们不能代替浏览器的 CSS 尺寸、焦点和实际热更新观察。\n\n面试回答可以用四句话组织：**具体触发了什么 → 实际观察到什么 → 背后的机制 → 我在项目中如何选择和处理边界**。最后使用 `/interview` 随机抽题，隐藏答案口述，再展开核对。",
+        "truncated": true
+      },
+      {
+        "path": "docs/ai-harness-plan.md",
+        "section": "5. 第一轮：修复学习记录恢复时的重复 ID",
+        "startLine": 58,
+        "endLine": 62,
+        "excerpt": "## 5. 第一轮：修复学习记录恢复时的重复 ID\n\n[learning.js](../src/stores/learning.js) 恢复 completed、favorites、mastered 时只过滤非字符串，没有去重；completedCount 使用数组长度，toggle 每次只删除一个匹配项。\n\n例如恢复 `completed: [\"vue-setup\", \"vue-setup\"]` 时，存在重复计数和取消后残留的风险。正式实施先用测试复现；当前尚未执行该复现测试。",
+        "truncated": true
+      },
+      {
+        "path": "docs/harness/tasks/001-learning-record-dedup.md",
+        "section": "HARNESS-001：学习记录恢复去重",
+        "startLine": 1,
+        "endLine": 3,
+        "excerpt": "# HARNESS-001：学习记录恢复去重\n\n状态：Skill、只读 MCP 和统一校验前置条件已就绪，待阶段 5 执行。当前仅做过只读诊断，尚未修改 store 或新增本任务回归测试。",
+        "truncated": true
+      },
+      {
+        "path": "docs/ai-harness-plan.md",
+        "section": "4. 阶段安排",
+        "startLine": 51,
+        "endLine": 56,
+        "excerpt": "| 3：只读 MCP | 使用 Node.js ESM 与 MCP SDK 建立本地 stdio 服务，接入宿主 | 服务、协议测试、接入说明 | 客户端能发现并调用工具，AI 会话得到真实查询结果 |\n| 4：统一校验 | 增加 `pnpm harness:verify`，汇总已有检查并记录结果 | 校验脚本、结果报告 | 必需检查失败则整体非零退出；跳过和通过分别记录 |\n| 5：真实修复闭环 | 通过 Skill 和 MCP 定位学习记录问题，先复现再修复与审查 | 回归测试、最小修复、运行记录 | 能展示修复前失败、修复后通过及完整校验结果 |\n| 6：需求开发与复盘 | 增加 SearchPanel 字段级禁用能力，验证 feature-dev 的真实开发流程，整理演示 | 第二个案例、演示步骤、复盘 | 真实需求按同一流程完成，说明已验证能力和改进方向 |\n\n按阶段推进。检查发现问题时先处理或记录阻塞，不把尚未执行的步骤标为完成。发布、远程操作和全局配置变更根据实际任务授权单独处理。",
+        "truncated": true
+      },
+      {
+        "path": "docs/ai-harness-plan.md",
+        "section": "执行链路",
+        "startLine": 73,
+        "endLine": 77,
+        "excerpt": "### 执行链路\n\n任务输入 → 调用问题排查 Skill → MCP 检索学习记录与状态说明 → 阅读实际 store → 新增行为测试 → 观察失败 → 最小修复 → 定向测试 → 完整校验 → 审查 Skill → 输出差异和证据。\n\n保留 MCP 调用结果、失败测试输出、修复差异、通过结果与审查结论。测试使用独立存储环境。",
+        "truncated": true
+      }
+    ],
+    "unavailableDocuments": []
+  }
+}

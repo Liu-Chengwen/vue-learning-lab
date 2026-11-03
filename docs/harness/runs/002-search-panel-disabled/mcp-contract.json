@@ -1,0 +1,22 @@
+{
+  "status": "fulfilled",
+  "value": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"found\": true,\n  \"name\": \"SearchPanel\",\n  \"path\": \"docs/component-contracts.md\",\n  \"section\": \"SearchPanel\",\n  \"startLine\": 16,\n  \"endLine\": 26,\n  \"sourcePath\": \"src/components/business/SearchPanel.vue\",\n  \"contract\": \"## SearchPanel\\n\\n文件：`src/components/business/SearchPanel.vue`。\\n\\n- model：`modelValue` 对象；字段更新通过新对象发出 `update:modelValue`。\\n- props：`fields`、`defaults`、`loading`。\\n- events：`submit`、`reset`，提供当前条件快照。\\n- slots：`field-{key}` 接收 `value`、`update` 等字段接口。\\n- 职责：展示与收集条件，请求由父页面发起。\\n\\n练习：增加一个状态筛选，先使用字段配置，再通过插槽换成自己设计的按钮组。\",\n  \"truncated\": false\n}"
+      }
+    ],
+    "structuredContent": {
+      "found": true,
+      "name": "SearchPanel",
+      "path": "docs/component-contracts.md",
+      "section": "SearchPanel",
+      "startLine": 16,
+      "endLine": 26,
+      "sourcePath": "src/components/business/SearchPanel.vue",
+      "contract": "## SearchPanel\n\n文件：`src/components/business/SearchPanel.vue`。\n\n- model：`modelValue` 对象；字段更新通过新对象发出 `update:modelValue`。\n- props：`fields`、`defaults`、`loading`。\n- events：`submit`、`reset`，提供当前条件快照。\n- slots：`field-{key}` 接收 `value`、`update` 等字段接口。\n- 职责：展示与收集条件，请求由父页面发起。\n\n练习：增加一个状态筛选，先使用字段配置，再通过插槽换成自己设计的按钮组。",
+      "truncated": false
+    }
+  }
+}

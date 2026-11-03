@@ -3,9 +3,9 @@ import { ElButton, ElDatePicker, ElInput, ElOption, ElSelect } from "element-plu
 
 /**
  * 可复用搜索面板：父组件持有条件值，本组件组合控件并发出用户意图，不自行筛选/请求数据。
- * model 是整个条件对象；fields 描述 key/label/type/options，defaults 描述“重置到什么值”。
+ * model 是整个条件对象；fields 描述 key/label/type/options/disabled，defaults 描述“重置到什么值”。
  * 输入修改仅更新 model；submit/reset 才通知父级应用条件，因此能区分编辑中与已提交状态。
- * 支持 field-{key}({value,update}) 和 actions 插槽；复杂字段通过插槽写，不把配置做成万能表单语言。
+ * 支持 field-{key}({value,update,disabled}) 和 actions 插槽；插槽控件由使用方绑定禁用状态。
  */
 defineOptions({ inheritAttrs: false });
 const model = defineModel({ type: Object, default: () => ({}) });
@@ -46,11 +46,17 @@ defineExpose({ reset, submit });
         >
             <label :for="`search-${field.key}`">{{ field.label }}</label>
             <!-- 特殊字段通过作用域插槽扩展，不继续堆叠配置分支。 -->
-            <slot :name="`field-${field.key}`" :value="model[field.key]" :update="(value) => update(field.key, value)">
+            <slot
+                :name="`field-${field.key}`"
+                :value="model[field.key]"
+                :update="(value) => update(field.key, value)"
+                :disabled="Boolean(field.disabled)"
+            >
                 <ElInput
                     v-if="field.type === 'input'"
                     :id="`search-${field.key}`"
                     :model-value="model[field.key]"
+                    :disabled="Boolean(field.disabled)"
                     :placeholder="field.placeholder || '请输入关键词'"
                     clearable
                     @update:model-value="update(field.key, $event)"
@@ -59,6 +65,7 @@ defineExpose({ reset, submit });
                     v-else-if="field.type === 'date'"
                     :id="`search-${field.key}`"
                     :model-value="model[field.key]"
+                    :disabled="Boolean(field.disabled)"
                     type="date"
                     value-format="YYYY-MM-DD"
                     placeholder="选择日期"
@@ -69,6 +76,7 @@ defineExpose({ reset, submit });
                     v-else
                     :id="`search-${field.key}`"
                     :model-value="model[field.key]"
+                    :disabled="Boolean(field.disabled)"
                     :placeholder="field.placeholder || '全部'"
                     clearable
                     @update:model-value="update(field.key, $event)"

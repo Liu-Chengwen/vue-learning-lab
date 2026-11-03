@@ -1,0 +1,58 @@
+{
+  "status": "fulfilled",
+  "value": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"query\": \"SearchPanel\",\n  \"totalMatches\": 7,\n  \"results\": [\n    {\n      \"path\": \"docs/ai-harness-plan.md\",\n      \"section\": \"6. 第二轮：SearchPanel 字段级禁用\",\n      \"startLine\": 79,\n      \"endLine\": 85,\n      \"excerpt\": \"## 6. 第二轮：SearchPanel 字段级禁用\\n\\n增加一个明确的小需求：字段配置支持 `disabled`，让对应的 Input、Select、DatePicker 禁用；未配置时保持现有交互。自定义字段插槽提供相同状态供使用方处理。\\n\\n使用 feature-dev Skill，经 MCP 查询 SearchPanel 契约，再完成组件、使用示例、行为测试和契约文档更新。主要验证禁用状态、默认兼容、插槽状态及查询/重置协议；控件外观和实际交互在浏览器中做代表性检查。\\n\\n这两轮分别展示问题修复和需求开发，围绕现有代码展开。\",\n      \"truncated\": true\n    },\n    {\n      \"path\": \"docs/component-contracts.md\",\n      \"section\": \"SearchPanel\",\n      \"startLine\": 16,\n      \"endLine\": 26,\n      \"excerpt\": \"## SearchPanel\\n\\n文件：`src/components/business/SearchPanel.vue`。\\n\\n- model：`modelValue` 对象；字段更新通过新对象发出 `update:modelValue`。\\n- props：`fields`、`defaults`、`loading`。\\n- events：`submit`、`reset`，提供当前条件快照。\\n- slots：`field-{key}` 接收 `value`、`update` 等字段接口。\\n- 职责：展示与收集条件，请求由父页面发起。\\n\\n练习：增加一个状态筛选，先使用字段配置，再通过插槽换成自己设计的按钮组。\",\n      \"truncated\": true\n    },\n    {\n      \"path\": \"docs/feature-coverage.md\",\n      \"section\": \"Element Plus 与业务组件\",\n      \"startLine\": 46,\n      \"endLine\": 51,\n      \"excerpt\": \"| 任务增删改查、筛选排序、分页、选择、表格/看板 | `/tasks`、`/tasks/:id` | `src/features/tasks/TasksView.vue`、`TaskDetailView.vue`、`src/stores/tasks.js` | 业务实践；数据在浏览器本地，异步服务允许延迟/失败/取消 |\\n| Form、Input、Select、DatePicker、Table、Pagination、Dialog/Drawer、反馈 | `/tasks`、`/ui-library` | `src/components/business/`、`src/features/ui-library/UiLibraryView.vue` | 业务实践 + 独立配置/内容扩展实验 |\\n| SearchPanel：字段、model、查询/重置、字段插槽 | `/tasks`、`/ui-library` | `src/components/business/SearchPanel.vue` | 业务实践 + 第二场景复用；不是通用任意表单引擎 |\\n| DataTable：列配置、单元格插槽、选择/分页事件、expose | `/tasks`、`/ui-library` | `src/components/business/DataTable.vue` | 业务实践；请求和筛选由使用方管理 |\\n| TaskFormDialog：草稿、异步校验、保存失败、统一关闭 | `/tasks`、`/tasks/:id`、`/ui-library` | `src/components/business/TaskFormDialog.vue` | 业务实践；通过 submit 函数等待结果，不把 emit 当异步返回值 |\\n| RemoteSelect：loader、防抖、取消、过期结果与清理 | `/tasks`、`/ui-library` | `RemoteSelect.vue`、`src/composables/useRequest.js`、`useDebounce.js` |\",\n      \"truncated\": true\n    },\n    {\n      \"path\": \"docs/learning-guide.md\",\n      \"section\": \"Element Plus 业务组件定制\",\n      \"startLine\": 117,\n      \"endLine\": 124,\n      \"excerpt\": \"| 文件 | 阅读重点 | 小练习 |\\n| --- | --- | --- |\\n| [SearchPanel.vue](../src/components/business/SearchPanel.vue) | 值归父级、查询/重置、字段插槽 | 增加一个状态筛选或自定义字段 |\\n| [DataTable.vue](../src/components/business/DataTable.vue) | data/columns、分页与选择事件、单元格插槽 | 增加截止日期提醒列 |\\n| [TaskFormDialog.vue](../src/components/business/TaskFormDialog.vue) | 独立草稿、校验、等待 submit、统一关闭 | 保存失败后重试，取消后检查原数据 |\\n| [RemoteSelect.vue](../src/components/business/RemoteSelect.vue) | loader、防抖、取消、请求序号、expose | 连续输入并模拟失败，比较错误和 loading 的归属 |\\n\\nAnt Design Vue 部分是版本明确的参考片段，当前实际业务运行 Element Plus。迁移时关注 prop 名、model 参数、事件、插槽和主题机制，不能只批量替换标签名。\",\n      \"truncated\": true\n    },\n    {\n      \"path\": \"docs/ai-harness-plan.md\",\n      \"section\": \"4. 阶段安排\",\n      \"startLine\": 52,\n      \"endLine\": 56,\n      \"excerpt\": \"| 4：统一校验 | 增加 `pnpm harness:verify`，汇总已有检查并记录结果 | 校验脚本、结果报告 | 必需检查失败则整体非零退出；跳过和通过分别记录 |\\n| 5：真实修复闭环 | 通过 Skill 和 MCP 定位学习记录问题，先复现再修复与审查 | 回归测试、最小修复、运行记录 | 能展示修复前失败、修复后通过及完整校验结果 |\\n| 6：需求开发与复盘 | 增加 SearchPanel 字段级禁用能力，验证 feature-dev 的真实开发流程，整理演示 | 第二个案例、演示步骤、复盘 | 真实需求按同一流程完成，说明已验证能力和改进方向 |\\n\\n按阶段推进。检查发现问题时先处理或记录阻塞，不把尚未执行的步骤标为完成。发布、远程操作和全局配置变更根据实际任务授权单独处理。\",\n      \"truncated\": true\n    }\n  ],\n  \"unavailableDocuments\": []\n}"
+      }
+    ],
+    "structuredContent": {
+      "query": "SearchPanel",
+      "totalMatches": 7,
+      "results": [
+        {
+          "path": "docs/ai-harness-plan.md",
+          "section": "6. 第二轮：SearchPanel 字段级禁用",
+          "startLine": 79,
+          "endLine": 85,
+          "excerpt": "## 6. 第二轮：SearchPanel 字段级禁用\n\n增加一个明确的小需求：字段配置支持 `disabled`，让对应的 Input、Select、DatePicker 禁用；未配置时保持现有交互。自定义字段插槽提供相同状态供使用方处理。\n\n使用 feature-dev Skill，经 MCP 查询 SearchPanel 契约，再完成组件、使用示例、行为测试和契约文档更新。主要验证禁用状态、默认兼容、插槽状态及查询/重置协议；控件外观和实际交互在浏览器中做代表性检查。\n\n这两轮分别展示问题修复和需求开发，围绕现有代码展开。",
+          "truncated": true
+        },
+        {
+          "path": "docs/component-contracts.md",
+          "section": "SearchPanel",
+          "startLine": 16,
+          "endLine": 26,
+          "excerpt": "## SearchPanel\n\n文件：`src/components/business/SearchPanel.vue`。\n\n- model：`modelValue` 对象；字段更新通过新对象发出 `update:modelValue`。\n- props：`fields`、`defaults`、`loading`。\n- events：`submit`、`reset`，提供当前条件快照。\n- slots：`field-{key}` 接收 `value`、`update` 等字段接口。\n- 职责：展示与收集条件，请求由父页面发起。\n\n练习：增加一个状态筛选，先使用字段配置，再通过插槽换成自己设计的按钮组。",
+          "truncated": true
+        },
+        {
+          "path": "docs/feature-coverage.md",
+          "section": "Element Plus 与业务组件",
+          "startLine": 46,
+          "endLine": 51,
+          "excerpt": "| 任务增删改查、筛选排序、分页、选择、表格/看板 | `/tasks`、`/tasks/:id` | `src/features/tasks/TasksView.vue`、`TaskDetailView.vue`、`src/stores/tasks.js` | 业务实践；数据在浏览器本地，异步服务允许延迟/失败/取消 |\n| Form、Input、Select、DatePicker、Table、Pagination、Dialog/Drawer、反馈 | `/tasks`、`/ui-library` | `src/components/business/`、`src/features/ui-library/UiLibraryView.vue` | 业务实践 + 独立配置/内容扩展实验 |\n| SearchPanel：字段、model、查询/重置、字段插槽 | `/tasks`、`/ui-library` | `src/components/business/SearchPanel.vue` | 业务实践 + 第二场景复用；不是通用任意表单引擎 |\n| DataTable：列配置、单元格插槽、选择/分页事件、expose | `/tasks`、`/ui-library` | `src/components/business/DataTable.vue` | 业务实践；请求和筛选由使用方管理 |\n| TaskFormDialog：草稿、异步校验、保存失败、统一关闭 | `/tasks`、`/tasks/:id`、`/ui-library` | `src/components/business/TaskFormDialog.vue` | 业务实践；通过 submit 函数等待结果，不把 emit 当异步返回值 |\n| RemoteSelect：loader、防抖、取消、过期结果与清理 | `/tasks`、`/ui-library` | `RemoteSelect.vue`、`src/composables/useRequest.js`、`useDebounce.js` |",
+          "truncated": true
+        },
+        {
+          "path": "docs/learning-guide.md",
+          "section": "Element Plus 业务组件定制",
+          "startLine": 117,
+          "endLine": 124,
+          "excerpt": "| 文件 | 阅读重点 | 小练习 |\n| --- | --- | --- |\n| [SearchPanel.vue](../src/components/business/SearchPanel.vue) | 值归父级、查询/重置、字段插槽 | 增加一个状态筛选或自定义字段 |\n| [DataTable.vue](../src/components/business/DataTable.vue) | data/columns、分页与选择事件、单元格插槽 | 增加截止日期提醒列 |\n| [TaskFormDialog.vue](../src/components/business/TaskFormDialog.vue) | 独立草稿、校验、等待 submit、统一关闭 | 保存失败后重试，取消后检查原数据 |\n| [RemoteSelect.vue](../src/components/business/RemoteSelect.vue) | loader、防抖、取消、请求序号、expose | 连续输入并模拟失败，比较错误和 loading 的归属 |\n\nAnt Design Vue 部分是版本明确的参考片段，当前实际业务运行 Element Plus。迁移时关注 prop 名、model 参数、事件、插槽和主题机制，不能只批量替换标签名。",
+          "truncated": true
+        },
+        {
+          "path": "docs/ai-harness-plan.md",
+          "section": "4. 阶段安排",
+          "startLine": 52,
+          "endLine": 56,
+          "excerpt": "| 4：统一校验 | 增加 `pnpm harness:verify`，汇总已有检查并记录结果 | 校验脚本、结果报告 | 必需检查失败则整体非零退出；跳过和通过分别记录 |\n| 5：真实修复闭环 | 通过 Skill 和 MCP 定位学习记录问题，先复现再修复与审查 | 回归测试、最小修复、运行记录 | 能展示修复前失败、修复后通过及完整校验结果 |\n| 6：需求开发与复盘 | 增加 SearchPanel 字段级禁用能力，验证 feature-dev 的真实开发流程，整理演示 | 第二个案例、演示步骤、复盘 | 真实需求按同一流程完成，说明已验证能力和改进方向 |\n\n按阶段推进。检查发现问题时先处理或记录阻塞，不把尚未执行的步骤标为完成。发布、远程操作和全局配置变更根据实际任务授权单独处理。",
+          "truncated": true
+        }
+      ],
+      "unavailableDocuments": []
+    }
+  }
+}

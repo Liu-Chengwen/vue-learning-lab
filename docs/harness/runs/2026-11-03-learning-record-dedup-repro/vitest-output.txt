@@ -1,0 +1,158 @@
+
+ RUN  v5.0.5 /Users/avidliu/Documents/Web Project/Learning/basicLearning
+
+ ❯ tests/learning-state.spec.js (10 tests | 7 failed) 19ms
+   ❯ 学习记录重复 ID 复现 (10)
+     × completed 恢复时去重并保留合法字符串的首次顺序 9ms
+     × favorites 恢复时去重并保留合法字符串的首次顺序 1ms
+     × mastered 恢复时去重并保留合法字符串的首次顺序 1ms
+     × 完成数量按恢复的唯一 ID 计数 1ms
+     × completed 恢复后切换一次可彻底取消，再切换恢复一条 3ms
+     × favorites 恢复后切换一次可彻底取消，再切换恢复一条 1ms
+     × mastered 恢复后切换一次可彻底取消，再切换恢复一条 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/learning-state.spec.js > 学习记录重复 ID 复现 > completed 恢复时去重并保留合法字符串的首次顺序
+ FAIL  tests/learning-state.spec.js > 学习记录重复 ID 复现 > favorites 恢复时去重并保留合法字符串的首次顺序
+ FAIL  tests/learning-state.spec.js > 学习记录重复 ID 复现 > mastered 恢复时去重并保留合法字符串的首次顺序
+AssertionError: expected [ 'vue-setup', 'custom-id', …(3) ] to deeply equal [ 'vue-setup', 'custom-id', '' ]
+
+- Expected
++ Received
+
+  [
+    "vue-setup",
+    "custom-id",
++   "vue-setup",
++   "custom-id",
+    "",
+  ]
+
+ ❯ tests/learning-state.spec.js:39:30
+     37|         const store = useLearningStore();
+     38|
+     39|         expect(store[field]).toEqual(["vue-setup", "custom-id", ""]);
+       |                              ^
+     40|     });
+     41|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/16]⎯
+
+ FAIL  tests/learning-state.spec.js > 学习记录重复 ID 复现 > 完成数量按恢复的唯一 ID 计数
+AssertionError: expected 2 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ tests/learning-state.spec.js:46:38
+     44|         const store = useLearningStore();
+     45|
+     46|         expect(store.completedCount).toBe(1);
+       |                                      ^
+     47|     });
+     48|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/16]⎯
+
+ FAIL  tests/learning-state.spec.js > 学习记录重复 ID 复现 > completed 恢复后切换一次可彻底取消，再切换恢复一条
+ FAIL  tests/learning-state.spec.js > 学习记录重复 ID 复现 > favorites 恢复后切换一次可彻底取消，再切换恢复一条
+ FAIL  tests/learning-state.spec.js > 学习记录重复 ID 复现 > mastered 恢复后切换一次可彻底取消，再切换恢复一条
+AssertionError: expected [ 'custom-id', 'vue-setup' ] to deeply equal [ 'custom-id' ]
+
+- Expected
++ Received
+
+  [
+    "custom-id",
++   "vue-setup",
+  ]
+
+ ❯ tests/learning-state.spec.js:54:35
+     52|
+     53|         store[action]("vue-setup");
+     54|         expect.soft(store[field]).toEqual(["custom-id"]);
+       |                                   ^
+     55|         // 等待真实 watch 落盘，同时检查取消残留是否继续写入存储。
+     56|         await nextTick();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/16]⎯
+
+ FAIL  tests/learning-state.spec.js > 学习记录重复 ID 复现 > completed 恢复后切换一次可彻底取消，再切换恢复一条
+ FAIL  tests/learning-state.spec.js > 学习记录重复 ID 复现 > favorites 恢复后切换一次可彻底取消，再切换恢复一条
+ FAIL  tests/learning-state.spec.js > 学习记录重复 ID 复现 > mastered 恢复后切换一次可彻底取消，再切换恢复一条
+AssertionError: expected [ 'custom-id', 'vue-setup' ] to deeply equal [ 'custom-id' ]
+
+- Expected
++ Received
+
+  [
+    "custom-id",
++   "vue-setup",
+  ]
+
+ ❯ tests/learning-state.spec.js:57:74
+     55|         // 等待真实 watch 落盘，同时检查取消残留是否继续写入存储。
+     56|         await nextTick();
+     57|         expect.soft(JSON.parse(localStorage.getItem(storageKey))[field…
+       |                                                                          ^
+     58|
+     59|         store[action]("vue-setup");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/16]⎯
+
+ FAIL  tests/learning-state.spec.js > 学习记录重复 ID 复现 > completed 恢复后切换一次可彻底取消，再切换恢复一条
+ FAIL  tests/learning-state.spec.js > 学习记录重复 ID 复现 > favorites 恢复后切换一次可彻底取消，再切换恢复一条
+ FAIL  tests/learning-state.spec.js > 学习记录重复 ID 复现 > mastered 恢复后切换一次可彻底取消，再切换恢复一条
+AssertionError: expected [ 'custom-id' ] to deeply equal [ 'custom-id', 'vue-setup' ]
+
+- Expected
++ Received
+
+  [
+    "custom-id",
+-   "vue-setup",
+  ]
+
+ ❯ tests/learning-state.spec.js:60:35
+     58|
+     59|         store[action]("vue-setup");
+     60|         expect.soft(store[field]).toEqual(["custom-id", "vue-setup"]);
+       |                                   ^
+     61|         await nextTick();
+     62|         expect.soft(JSON.parse(localStorage.getItem(storageKey))[field…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/16]⎯
+
+ FAIL  tests/learning-state.spec.js > 学习记录重复 ID 复现 > completed 恢复后切换一次可彻底取消，再切换恢复一条
+ FAIL  tests/learning-state.spec.js > 学习记录重复 ID 复现 > favorites 恢复后切换一次可彻底取消，再切换恢复一条
+ FAIL  tests/learning-state.spec.js > 学习记录重复 ID 复现 > mastered 恢复后切换一次可彻底取消，再切换恢复一条
+AssertionError: expected [ 'custom-id' ] to deeply equal [ 'custom-id', 'vue-setup' ]
+
+- Expected
++ Received
+
+  [
+    "custom-id",
+-   "vue-setup",
+  ]
+
+ ❯ tests/learning-state.spec.js:62:74
+     60|         expect.soft(store[field]).toEqual(["custom-id", "vue-setup"]);
+     61|         await nextTick();
+     62|         expect.soft(JSON.parse(localStorage.getItem(storageKey))[field…
+       |                                                                          ^
+     63|     });
+     64|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/16]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  7 failed | 3 passed (10)
+   Start at  20:19:06
+   Duration  604ms (environment 80%, import 11%, transform 5%, tests 4%, worker 1%)
+

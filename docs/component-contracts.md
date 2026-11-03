@@ -19,11 +19,15 @@
 
 - model：`modelValue` 对象；字段更新通过新对象发出 `update:modelValue`。
 - props：`fields`、`defaults`、`loading`。
+- `fields[].disabled`：可选布尔值，默认 `false`，控制该字段的 Input、Select 或 DatePicker；动态切换只改变可交互状态，不清空或修改 model 中的值。
 - events：`submit`、`reset`，提供当前条件快照。
-- slots：`field-{key}` 接收 `value`、`update` 等字段接口。
+- slots：`field-{key}` 接收 `{ value, update, disabled }`；`disabled` 为布尔值，自定义控件由使用方绑定 `:disabled="disabled"`，`update(value)` 沿用原有更新协议。
+- 禁用字段仍包含在查询快照中；重置仍用 `defaults` 更新整个 model 并发出默认条件快照，禁用不阻止显式重置。字段更新仍发出新对象，不直接修改父级传入对象。
 - 职责：展示与收集条件，请求由父页面发起。
 
 练习：增加一个状态筛选，先使用字段配置，再通过插槽换成自己设计的按钮组。
+
+演示：`/ui-library` → “业务组件封装” → “禁用搜索字段”开关，同时控制内置输入框与自定义优先级选择器。
 
 ## DataTable
 
