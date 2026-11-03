@@ -1,0 +1,4 @@
+interface:
+    display_name: "Vue Lab 问题排查"
+    short_description: "分析 Vue Lab 可复现问题，定位根因并验证最小修复"
+    default_prompt: "使用 $bug-investigation 排查这个 Vue Lab 问题，先给出证据与复现方案，再按授权范围修复并验证。"

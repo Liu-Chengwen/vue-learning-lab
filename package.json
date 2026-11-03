@@ -9,12 +9,15 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "format": "prettier --write src tests scripts examples vite.config.js vitest.config.js",
-    "format:check": "prettier --check src tests scripts examples vite.config.js vitest.config.js",
+    "format": "prettier --write src tests scripts examples tools .agents/skills AGENTS.md vite.config.js vitest.config.js",
+    "format:check": "prettier --check src tests scripts examples tools .agents/skills AGENTS.md vite.config.js vitest.config.js",
     "webpack:dev": "webpack serve --config examples/webpack/webpack.config.cjs --mode development",
     "webpack:build": "webpack --config examples/webpack/webpack.config.cjs --mode production",
     "mock:api": "node scripts/mock-api.mjs",
     "build:report": "vite build && node scripts/build-report.mjs",
+    "harness:mcp": "node tools/project-mcp/server.mjs",
+    "harness:codex": "node scripts/harness-codex.mjs",
+    "harness:verify": "node scripts/harness-verify.mjs",
     "check": "pnpm test && pnpm build && pnpm webpack:build"
   },
   "dependencies": {
@@ -27,6 +30,7 @@
     "vue-router": "^5.4.0"
   },
   "devDependencies": {
+    "@modelcontextprotocol/sdk": "1.32.2",
     "@vitejs/plugin-vue": "^6.0.7",
     "@vue/test-utils": "^2.5.1",
     "css-loader": "^7.1.5",
@@ -41,7 +45,8 @@
     "vue-loader": "^17.4.2",
     "webpack": "^5.112.1",
     "webpack-cli": "^7.2.3",
-    "webpack-dev-server": "^6.1.0"
+    "webpack-dev-server": "^6.1.0",
+    "zod": "^4.6.7"
   },
   "engines": {
     "node": "^22.18.0 || >=24.12.0"

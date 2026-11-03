@@ -1,0 +1,4 @@
+interface:
+    display_name: "Vue Lab 代码审查"
+    short_description: "只读审查 Vue Lab 变更，报告行为回归、契约及测试问题"
+    default_prompt: "使用 $code-review 只读审查当前 Vue Lab 变更，按风险列出有代码依据的问题及验证边界。"

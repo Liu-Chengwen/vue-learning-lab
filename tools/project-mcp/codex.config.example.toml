@@ -1,0 +1,9 @@
+# 可选：复制到仓库根目录的 .codex/config.toml，并在支持的可信项目中使用。
+# 此时 cwd 相对 .codex 解析，.. 指向仓库根目录；日常推荐使用 pnpm harness:codex。
+[mcp_servers.vue_lab_docs]
+command = "node"
+args = ["tools/project-mcp/server.mjs"]
+cwd = ".."
+enabled_tools = ["search_project_docs", "get_component_contract"]
+startup_timeout_sec = 15
+tool_timeout_sec = 20

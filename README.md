@@ -31,6 +31,8 @@ pnpm dev
 - [需求设计](docs/vue3-learning-plan.md)：项目范围和最初的学习目标。
 - [验收记录](docs/verification.md)：自动化结果、Chrome 桌面与窄屏操作检查。
 - [项目面试介绍](docs/project-interview.md)：技术栈、口述稿、简历描述、技术问题与演示顺序。
+- [AI Harness 实践计划](docs/ai-harness-plan.md)：项目规则、Skill、MCP 与校验闭环的阶段及实际进度；项目约定见 [AGENTS.md](AGENTS.md)。
+- [AI Harness 使用指南](docs/harness/guide.md)：启动带项目 MCP 的 Codex、调用三个 Skill、执行统一校验及读取报告。
 
 ## 常用命令
 
@@ -48,6 +50,9 @@ pnpm dev
 | `pnpm mock:api` | 启动仅本机可访问的模拟 API，端口 3001 |
 | `pnpm build:report` | 构建主应用并显示真实产物的原始/gzip 大小 |
 | `pnpm check` | 连续运行测试和两个生产构建 |
+| `pnpm harness:codex` | 启动带项目只读 MCP 配置的 Codex，可传入标准 Codex 参数 |
+| `pnpm harness:mcp` | 单独启动本地 stdio MCP，通常由宿主自动管理 |
+| `pnpm harness:verify` | 顺序执行格式、测试及两个构建，失败非零退出并保存 JSON 报告和日志 |
 
 主项目保留 CSS/Less。Element Plus 通过显式组件导入使用，样式通过全局 CSS 变量统一主题；图标依赖名 `lucide-vue-next` 使用 npm alias 指向维护中的 `@lucide/vue`。依赖实际版本以 `pnpm-lock.yaml` 为准。
 
@@ -93,4 +98,5 @@ scripts/                    模拟 API 与构建产物报告
 - Vite / Webpack 页面区分真实环境、模块加载、HMR与代理实验，以及明确标注的流程/体积教学模型。真实产物以终端和生成文件为准。
 - Vite 构建保留 manifest 和 source map，便于教学。源码阅读功能会额外生成按需加载的源码文本 chunk，分析体积时应与实际运行模块区分。
 - 关键代码包含中文注释，解释数据流、API 选择、扩展接口和清理边界。测试覆盖通信、缓存、异步竞态、防抖清理、草稿隔离、持久化和主路径渲染。
-- 已通过 38 项自动化测试、Vite / Webpack 生产构建和代码格式检查，并完成 Chrome 桌面与 390 × 844 窄屏的代表性视觉/交互验收。具体操作与验证边界见[验收记录](docs/verification.md)。
+- 当前通过 57 项自动化测试、Vite / Webpack 生产构建和代码格式检查；Harness 的实际 Skill、MCP 调用及校验记录见[阶段记录](docs/harness/runs/2026-11-03-skills-mcp-verify.md)。
+- 学习应用已完成 Chrome 桌面与 390 × 844 窄屏的代表性视觉/交互验收，具体操作与验证边界见[验收记录](docs/verification.md)。

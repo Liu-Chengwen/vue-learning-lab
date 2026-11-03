@@ -39,3 +39,6 @@ __screenshots__/
 
 # Project-local pnpm cache is not source code
 .pnpm-store/
+
+# Harness checks keep raw logs and generated reports outside tracked source.
+/.harness-artifacts/

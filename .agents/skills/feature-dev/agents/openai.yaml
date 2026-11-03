@@ -1,0 +1,4 @@
+interface:
+    display_name: "Vue Lab 需求开发"
+    short_description: "按 Vue Lab 组件契约实现小功能，补充测试并交付证据"
+    default_prompt: "使用 $feature-dev 实现这个 Vue Lab 小需求，先明确验收与复用方式，再按授权完成代码、测试和契约更新。"
