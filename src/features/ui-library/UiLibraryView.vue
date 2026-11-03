@@ -347,6 +347,7 @@ interface DataTableProps<Row extends { id: string }> {
                         @reset="apply"
                         ><template #field-priority="{ value, update, disabled }"
                             ><ElSelect
+                                id="search-priority"
                                 :model-value="value"
                                 :disabled="disabled"
                                 placeholder="自定义字段插槽"

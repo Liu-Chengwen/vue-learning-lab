@@ -1,0 +1,11 @@
+[command] ["pnpm","test"]
+$ vitest run
+
+ RUN  v5.0.5 /Users/avidliu/Documents/Web Project/Learning/basicLearning
+
+
+ Test Files  12 passed (12)
+      Tests  83 passed (83)
+   Start at  20:49:42
+   Duration  4.89s (tests 52%, import 26%, environment 18%, transform 3%)
+

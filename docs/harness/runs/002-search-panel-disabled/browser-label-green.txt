@@ -1,0 +1,9 @@
+
+ RUN  v5.0.5 /Users/avidliu/Documents/Web Project/Learning/basicLearning
+
+
+ Test Files  2 passed (2)
+      Tests  9 passed (9)
+   Start at  20:49:25
+   Duration  1.70s (import 52%, tests 20%, environment 19%, transform 9%)
+

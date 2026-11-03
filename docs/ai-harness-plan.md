@@ -1,6 +1,6 @@
 # Vue Lab · AI Harness 实践计划
 
-规划日期：2026-11-03。实施进度：阶段 0～4 已完成。项目规则已加载验证，三个 Skill 与两项 MCP 工具已在新 Codex CLI 会话实际使用；统一校验最终通过 57 项测试及格式、双构建。阶段 5 的业务修复与阶段 6 的真实需求开发仍待执行。证据见[基线记录](harness/runs/2026-11-03-baseline.md)、[阶段 2～4 记录](harness/runs/2026-11-03-skills-mcp-verify.md)，运行方法见[使用指南](harness/guide.md)。
+规划日期：2026-11-03。实施进度：阶段 0～6 已完成。项目规则、三个 Skill、两项 MCP 工具及统一校验已有实际执行证据；学习记录去重修复与 SearchPanel 字段禁用需求均已实现。最新完整校验通过 83 项测试及格式、双构建，字段禁用示例通过 Chrome 桌面及 375 × 667 窄屏验收。证据见[基线记录](harness/runs/2026-11-03-baseline.md)、[阶段 2～4 记录](harness/runs/2026-11-03-skills-mcp-verify.md)、[阶段 5 记录](harness/runs/001-learning-record-dedup.md)、[阶段 6 开发记录](harness/runs/002-search-panel-disabled.md)与[浏览器验收](harness/runs/002-search-panel-disabled-browser.md)，运行方法见[使用指南](harness/guide.md)。
 
 ## 1. 目标与实施方式
 
@@ -10,7 +10,7 @@
 
 Codex 提供模型执行、文件操作、工具调用和任务循环等基础能力；本项目负责补充项目规则、专用 Skill、只读知识工具和确定性校验。本案例定位为基于现有执行环境建设项目 Harness 工作流。
 
-第一版使用当前 Codex 环境和项目原有 JavaScript 技术栈。每个阶段解释目的、展示产物并验证效果。当前已具备项目启动器、Skill、只读 MCP 和统一校验，后续通过真实业务改动验证完整交付闭环。
+第一版使用当前 Codex 环境和项目原有 JavaScript 技术栈。每个阶段解释目的、展示产物并验证效果。当前已具备项目启动器、Skill、只读 MCP 和统一校验，并通过两个真实业务案例验证了需求、修改、检查、反馈修复及审查验收的流程。
 
 ## 2. 项目现状
 
@@ -57,9 +57,9 @@ Skill 定义可复用流程，MCP 提供数据或受控动作，职责见 [OpenA
 
 ## 5. 第一轮：修复学习记录恢复时的重复 ID
 
-[learning.js](../src/stores/learning.js) 恢复 completed、favorites、mastered 时只过滤非字符串，没有去重；completedCount 使用数组长度，toggle 每次只删除一个匹配项。
+[learning.js](../src/stores/learning.js) 在规划基线中恢复 completed、favorites、mastered 时只过滤非字符串，没有去重；completedCount 使用数组长度，toggle 每次只删除一个匹配项。该问题现已修复，以下保留任务定义。
 
-例如恢复 `completed: ["vue-setup", "vue-setup"]` 时，存在重复计数和取消后残留的风险。正式实施先用测试复现；当前尚未执行该复现测试。
+例如恢复 `completed: ["vue-setup", "vue-setup"]` 时，存在重复计数和取消后残留的风险。正式实施已先复现再修复，失败与通过输出见[阶段 5 记录](harness/runs/001-learning-record-dedup.md)。
 
 ### 任务范围与验收
 

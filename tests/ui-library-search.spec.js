@@ -37,6 +37,11 @@ describe("组件库 SearchPanel 禁用示例", () => {
         const panel = wrapper.getComponent(SearchPanel);
         await panel.get("#search-query").setValue("Vue");
         const select = panel.getComponent(ElSelect);
+        // 字段插槽替换控件后，面板 label 仍需关联到实际的原生输入元素。
+        const priorityLabel = panel.get('label[for="search-priority"]');
+        const priorityInput = panel.get("#search-priority");
+        expect(priorityInput.element.tagName).toBe("INPUT");
+        expect(Array.from(priorityInput.element.labels)).toContain(priorityLabel.element);
         select.vm.$emit("update:modelValue", "high");
         await wrapper.vm.$nextTick();
         const model = { query: "Vue", priority: "high" };

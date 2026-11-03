@@ -4,7 +4,7 @@
 
 日期：2026-11-03（Asia/Shanghai）。分支 `feat/ai-harness`，基线 `5cc23e53cf4686357424b27434fc305e62084846`；工作区已有学习记录修复、测试和运行证据，本轮保留，不回退或覆盖。环境沿用 Node v24.18.0、pnpm 11.13.1、Vitest 5.0.5。
 
-使用 `.agents/skills/feature-dev/SKILL.md`，已完成实现、契约、行为测试和自动校验。**浏览器验收待用户操作，未执行、未标记通过。** 未提交或推送。
+本开发记录使用 `.agents/skills/feature-dev/SKILL.md`，完成实现、契约、行为测试和自动校验；当时未执行浏览器验收，也未提交或推送。**后续已按用户授权完成测试与 Chrome 桌面、375 × 667 窄屏验收，并修复一处插槽控件标签关联问题，详见[测试与浏览器验收补充](002-search-panel-disabled-browser.md)。** 以下执行输出保留开发当时的结果。
 
 ## 实际 MCP 调用与源码核对
 
@@ -59,15 +59,15 @@ pnpm exec vitest run tests/search-panel.spec.js tests/ui-library-search.spec.js
 
 最终核对代码和测试 diff、运行 `git diff --check`，退出 0；未发现本轮范围内需要继续修复的问题。自动检查后仅新增本记录，未再修改实现和测试。
 
-## 浏览器验收待办与验证边界
+## 开发时的浏览器待办与验证边界
 
 本轮遵照用户要求不操作浏览器，不将 happy-dom 的测试结果记为浏览器验收通过。页面测试保留真实 SearchPanel、Input、Select、Switch，替换无关的 LessonFrame、RouterLink、DataTable、TaskFormDialog、RemoteSelect；Select 的选值以组件更新事件驱动，日期控件的禁用由 DOM 和 prop 断言验证。自动检查不证明实际弹层、鼠标键盘交互与 CSS 布局。
 
-供用户操作的代表性步骤（均待验收）：
+开发时列出的代表性步骤（后续验收结果见[补充记录](002-search-panel-disabled-browser.md)）：
 
 1. 打开 `/ui-library` 的“业务组件封装”，输入标题、选择优先级，再开启“禁用搜索字段”。
 2. 检查输入框和插槽选择器不能编辑且原值保留，查询仍应用当前条件。
 3. 关闭开关，检查原值与编辑能力恢复；再次禁用后点击重置，检查恢复默认值并更新查询结果。
 4. 观察桌面与窄屏的开关、字段和按钮布局，以及禁用状态下的焦点和清除交互。
 
-示例展示内置 Input 和插槽 Select；三类内置控件（包括 DatePicker）已由定向测试验证。浏览器验收仍为待办，功能未发布，未提交、未推送。
+示例展示内置 Input 和插槽 Select；三类内置控件（包括 DatePicker）已由定向测试验证。开发当时浏览器验收为待办；后续已完成示例的代表性浏览器检查，具体覆盖、修复与限制见补充记录。

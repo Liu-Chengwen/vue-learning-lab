@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-11-03T12-49-39-949Z-7cbc1251",
+  "root": "/Users/avidliu/Documents/Web Project/Learning/basicLearning",
+  "git": {
+    "head": "e26e7319aafaac8d06151c48608a4cd19b514b9e",
+    "dirty": true,
+    "error": null
+  },
+  "startedAt": "2026-11-03T12:49:39.949Z",
+  "finishedAt": "2026-11-03T12:49:51.413Z",
+  "durationMs": 11464,
+  "status": "passed",
+  "exitCode": 0,
+  "checks": [
+    {
+      "name": "format:check",
+      "command": "pnpm",
+      "args": [
+        "format:check"
+      ],
+      "status": "passed",
+      "startedAt": "2026-11-03T12:49:39.975Z",
+      "finishedAt": "2026-11-03T12:49:41.611Z",
+      "durationMs": 1636,
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "skipReason": null,
+      "logPath": "/Users/avidliu/Documents/Web Project/Learning/basicLearning/.harness-artifacts/verify/2026-11-03T12-49-39-949Z-7cbc1251/01.log"
+    },
+    {
+      "name": "test",
+      "command": "pnpm",
+      "args": [
+        "test"
+      ],
+      "status": "passed",
+      "startedAt": "2026-11-03T12:49:41.611Z",
+      "finishedAt": "2026-11-03T12:49:47.069Z",
+      "durationMs": 5458,
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "skipReason": null,
+      "logPath": "/Users/avidliu/Documents/Web Project/Learning/basicLearning/.harness-artifacts/verify/2026-11-03T12-49-39-949Z-7cbc1251/02.log"
+    },
+    {
+      "name": "build",
+      "command": "pnpm",
+      "args": [
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-11-03T12:49:47.069Z",
+      "finishedAt": "2026-11-03T12:49:49.014Z",
+      "durationMs": 1945,
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "skipReason": null,
+      "logPath": "/Users/avidliu/Documents/Web Project/Learning/basicLearning/.harness-artifacts/verify/2026-11-03T12-49-39-949Z-7cbc1251/03.log"
+    },
+    {
+      "name": "webpack:build",
+      "command": "pnpm",
+      "args": [
+        "webpack:build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-11-03T12:49:49.014Z",
+      "finishedAt": "2026-11-03T12:49:51.413Z",
+      "durationMs": 2399,
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "skipReason": null,
+      "logPath": "/Users/avidliu/Documents/Web Project/Learning/basicLearning/.harness-artifacts/verify/2026-11-03T12-49-39-949Z-7cbc1251/04.log"
+    }
+  ]
+}

@@ -98,5 +98,5 @@ scripts/                    模拟 API 与构建产物报告
 - Vite / Webpack 页面区分真实环境、模块加载、HMR与代理实验，以及明确标注的流程/体积教学模型。真实产物以终端和生成文件为准。
 - Vite 构建保留 manifest 和 source map，便于教学。源码阅读功能会额外生成按需加载的源码文本 chunk，分析体积时应与实际运行模块区分。
 - 关键代码包含中文注释，解释数据流、API 选择、扩展接口和清理边界。测试覆盖通信、缓存、异步竞态、防抖清理、草稿隔离、持久化和主路径渲染。
-- 当前通过 57 项自动化测试、Vite / Webpack 生产构建和代码格式检查；Harness 的实际 Skill、MCP 调用及校验记录见[阶段记录](docs/harness/runs/2026-11-03-skills-mcp-verify.md)。
+- 当前通过 83 项自动化测试、Vite / Webpack 生产构建和代码格式检查；Harness 的实际 Skill、MCP 调用及校验见[阶段记录](docs/harness/runs/2026-11-03-skills-mcp-verify.md)，字段禁用功能的最新检查见[测试与浏览器验收](docs/harness/runs/002-search-panel-disabled-browser.md)。
 - 学习应用已完成 Chrome 桌面与 390 × 844 窄屏的代表性视觉/交互验收，具体操作与验证边界见[验收记录](docs/verification.md)。

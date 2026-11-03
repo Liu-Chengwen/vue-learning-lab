@@ -1,0 +1,69 @@
+
+ RUN  v5.0.5 /Users/avidliu/Documents/Web Project/Learning/basicLearning
+
+ ❯ tests/ui-library-search.spec.js (1 test | 1 failed) 191ms
+   ❯ 组件库 SearchPanel 禁用示例 (1)
+     × 开关控制内置输入框与真实插槽选择器，保留值且查询重置仍有效 190ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/ui-library-search.spec.js > 组件库 SearchPanel 禁用示例 > 开关控制内置输入框与真实插槽选择器，保留值且查询重置仍有效
+Error: Unable to get #search-priority within: <!-- attrs 放在 form 上，保留使用方的 class/aria 属性；键盘 Enter 与查询按钮共用 submit。 -->
+<form data-v-edeb0350="" data-v-4cbab715="" class="search-panel">
+  <div data-v-edeb0350="" class="search-panel__field search-panel__field--grow"><label data-v-edeb0350="" for="search-query">任务标题</label><!-- 特殊字段通过作用域插槽扩展，不继续堆叠配置分支。 -->
+    <div data-v-edeb0350="" class="el-input el-input--suffix">
+      <!-- input -->
+      <!-- prepend slot -->
+      <!--v-if-->
+      <div class="el-input__wrapper" tabindex="-1">
+        <!-- prefix slot -->
+        <!--v-if--><input class="el-input__inner" type="text" autocomplete="off" tabindex="0" placeholder="输入关键词，点击查询" id="search-query"><!-- suffix slot --><span class="el-input__suffix"><span class="el-input__suffix-inner"><i class="el-icon el-input__icon el-input__clear" style="visibility: hidden;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="m466.752 512-90.496-90.496a32 32 0 0 1 45.248-45.248L512 466.752l90.496-90.496a32 32 0 1 1 45.248 45.248L557.248 512l90.496 90.496a32 32 0 1 1-45.248 45.248L512 557.248l-90.496 90.496a32 32 0 0 1-45.248-45.248z"></path><path fill="currentColor" d="M512 896a384 384 0 1 0 0-768 384 384 0 0 0 0 768m0 64a448 448 0 1 1 0-896 448 448 0 0 1 0 896"></path></svg></i><!--v-if--><!--v-if--><!--v-if--><!--v-if--></span></span>
+      </div><!-- append slot -->
+      <!--v-if-->
+    </div>
+  </div>
+  <div data-v-edeb0350="" class="search-panel__field"><label data-v-edeb0350="" for="search-priority">优先级</label><!-- 特殊字段通过作用域插槽扩展，不继续堆叠配置分支。 -->
+    <div data-v-4cbab715="" class="el-select">
+      <div class="el-select__wrapper el-tooltip__trigger el-tooltip__trigger" tabindex="-1">
+        <!--v-if-->
+        <div class="el-select__selection">
+          <!--v-if-->
+          <div class="el-select__selected-item el-select__input-wrapper is-hidden"><input type="text" class="el-select__input" autocomplete="off" style="min-width: 11px;" tabindex="0" role="combobox" readonly="" spellcheck="false" aria-activedescendant="" aria-controls="el-id-6256-11" aria-expanded="false" aria-autocomplete="none" aria-haspopup="listbox" value="" id="el-id-6256-23">
+            <!--v-if-->
+          </div>
+          <div class="el-select__selected-item el-select__placeholder is-transparent"><span>自定义字段插槽</span></div>
+        </div>
+        <div class="el-select__suffix"><i class="el-icon el-select__caret el-select__icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+              <path fill="currentColor" d="M831.872 340.864 512 652.672 192.128 340.864a30.59 30.59 0 0 0-42.752 0 29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728 30.59 30.59 0 0 0-42.752 0z"></path>
+            </svg></i>
+          <!--v-if-->
+          <!--v-if-->
+        </div>
+      </div>
+      <!--teleport start-->
+      <!--teleport end-->
+    </div>
+  </div>
+  <div data-v-edeb0350="" class="search-panel__actions"><button data-v-edeb0350="" ariadisabled="false" autofocus="false" type="submit" class="el-button el-button--primary">
+      <!--v-if--><span class="">查询</span>
+    </button><button data-v-edeb0350="" ariadisabled="false" autofocus="false" type="button" class="el-button">
+      <!--v-if--><span class="">重置</span>
+    </button></div>
+</form>
+ ❯ VueWrapper.get node_modules/.pnpm/@vue+test-utils@2.5.1_@vue+compiler-dom@3.5.44_@vue+server-renderer@3.5.44_vue@3.5.44/node_modules/@vue/test-utils/dist/vue-test-utils.cjs.js:7333:15
+ ❯ tests/ui-library-search.spec.js:42:37
+     40|         // 字段插槽替换控件后，面板 label 仍需关联到实际的原生输入元素。
+     41|         const priorityLabel = panel.get('label[for="search-priority"]'…
+     42|         const priorityInput = panel.get("#search-priority");
+       |                                     ^
+     43|         expect(priorityInput.element.tagName).toBe("INPUT");
+     44|         expect(Array.from(priorityInput.element.labels)).toContain(pri…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  20:48:30
+   Duration  1.51s (import 60%, environment 18%, tests 14%, transform 8%)
+
