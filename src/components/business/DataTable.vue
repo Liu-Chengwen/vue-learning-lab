@@ -13,6 +13,8 @@ defineProps({
     data: { type: Array, default: () => [] },
     columns: { type: Array, default: () => [] },
     loading: Boolean,
+    // 保留任务页默认文案，其他业务可显式提供自己的空态。
+    emptyText: { type: String, default: "暂无符合条件的任务，试试调整筛选条件。" },
     selectable: { type: Boolean, default: true },
     total: { type: Number, default: 0 },
     page: { type: Number, default: 1 },
@@ -42,7 +44,7 @@ defineExpose({ clearSelection: () => table.value?.clearSelection() });
             :data="data"
             :row-key="rowKey"
             v-bind="$attrs"
-            empty-text="暂无符合条件的任务，试试调整筛选条件。"
+            :empty-text="emptyText"
             @selection-change="emit('selection-change', $event)"
             @sort-change="emit('sort-change', $event)"
         >

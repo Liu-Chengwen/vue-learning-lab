@@ -8,6 +8,7 @@ import vueDevTools from "vite-plugin-vue-devtools";
 // 不代表把这些变量都传给浏览器。VITE_ 变量另由 Vite 按公开约定注入客户端。
 export default defineConfig(({ mode }) => {
     const environment = loadEnv(mode, process.cwd(), "");
+    const javaTarget = environment.SPRING_BOOT_PROXY_TARGET || "http://127.0.0.1:8080";
     return {
         plugins: [vue(), vueDevTools()],
         // import.meta.url 定位当前 ESM 配置文件，fileURLToPath 转成跨平台文件路径。
@@ -15,6 +16,19 @@ export default defineConfig(({ mode }) => {
         resolve: { alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) } },
         server: {
             proxy: {
+                // Java API 优先匹配版本前缀，保留完整路径；其他 /api 请求继续使用 Node Mock。
+                "^/api/v1(?:/|$)": {
+                    target: javaTarget,
+                    changeOrigin: true
+                },
+                // 文档与接口共用浏览器源，Session Cookie 和 CSRF 不跨域转交。
+                "/swagger-ui": { target: javaTarget, changeOrigin: true },
+                "/v3/api-docs": { target: javaTarget, changeOrigin: true },
+                "^/backend-health$": {
+                    target: javaTarget,
+                    changeOrigin: true,
+                    rewrite: () => "/actuator/health"
+                },
                 "/api": {
                     target: environment.API_PROXY_TARGET || "http://127.0.0.1:3001",
                     // 转发时调整 Host；rewrite 去掉约定的 /api 前缀，后端实际收到 /health 等路径。

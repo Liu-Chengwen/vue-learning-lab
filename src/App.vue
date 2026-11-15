@@ -23,7 +23,9 @@ import {
     Menu,
     X,
     PanelLeftClose,
-    BookOpen
+    BookOpen,
+    Smartphone,
+    MapPin
 } from "lucide-vue-next";
 import { usePreferencesStore } from "@/stores/preferences";
 import { navGroups, searchEntries } from "@/data/navigation";
@@ -120,6 +122,27 @@ onUnmounted(() => window.removeEventListener("keydown", keydown));
                     ></RouterLink>
                     <RouterLink to="/tasks" class="nav-item" :class="{ active: route.path.startsWith('/tasks') }"
                         ><CheckSquare2 :size="17" /><span>任务工作台</span></RouterLink
+                    >
+                    <RouterLink to="/backend-demo" class="nav-item" :class="{ active: route.path === '/backend-demo' }"
+                        ><Wrench :size="17" /><span>后端接口联调</span></RouterLink
+                    >
+                    <RouterLink to="/backend-lab" class="nav-item" :class="{ active: route.path === '/backend-lab' }"
+                        ><Blocks :size="17" /><span>后端业务控制台</span></RouterLink
+                    >
+                    <RouterLink to="/hybrid" class="nav-item" :class="{ active: route.path === '/hybrid' }"
+                        ><Smartphone :size="17" /><span>WKWebView 与 Hybrid</span></RouterLink
+                    >
+                    <RouterLink
+                        to="/hybrid/location"
+                        class="nav-item"
+                        :class="{ active: route.path === '/hybrid/location' }"
+                        ><MapPin :size="17" /><span>原生定位实验</span></RouterLink
+                    >
+                    <RouterLink
+                        to="/hybrid/navigation"
+                        class="nav-item"
+                        :class="{ active: route.path.startsWith('/hybrid/navigation') }"
+                        ><ArrowLeftRight :size="17" /><span>Hybrid 导航实验</span></RouterLink
                     >
                     <div class="nav-section-label">LEARN BY DOING<span>动手学习</span></div>
                     <template v-for="group in navGroups" :key="group.id">

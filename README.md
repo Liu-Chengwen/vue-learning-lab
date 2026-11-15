@@ -26,6 +26,7 @@ pnpm dev
 
 - [学习指南](docs/learning-guide.md)：建议路线、操作方法与源码阅读顺序。
 - [知识覆盖表](docs/feature-coverage.md)：哪些做了实操、哪些是拓展说明。
+- [WKWebView / Hybrid 联调](docs/hybrid-integration.md)：第 04 课的字符串通信、Promise 协议、原生定位、导航实验和 Swift 接入步骤。
 - [业务组件接口](docs/component-contracts.md)：状态归属、props、events、slots、expose。
 - [Vite / Webpack 实践](docs/vite-webpack-guide.md)：运行、代理、构建与验证方法。
 - [需求设计](docs/vue3-learning-plan.md)：项目范围和最初的学习目标。
@@ -67,7 +68,34 @@ pnpm dev
 
 在工程专题的「环境、代理与配置」实验中点击实际请求按钮，或访问 `http://localhost:5173/api/health`。Vite 将 `/api` 前缀去除后转发到本机 3001 接口。生产预览不运行开发代理。
 
-`.env.example` 提供公开标签与代理目标的配置示例。需要自定义时复制为 `.env.local` 并重启开发服务。`VITE_` 变量会进入客户端，学习应用不包含登录或真实业务后端；独立 Node mock 仅用于验证开发代理。
+### Spring Boot 业务控制台
+
+业务前端全部位于本工程。配套 `../springboot-lab` 只负责 Java API、数据库与基础设施。侧栏「后端业务控制台」或 `http://localhost:5173/#/backend-lab` 提供登录注册、用户分页筛选与管理员 CRUD、审计和异步消息观察；原 `/#/backend-demo` 保留最早的问候练习。
+
+1. 在后端运行 `./scripts/lab.py run`，或部署后端容器。
+2. 在本工程 `.env.local` 设置 `SPRING_BOOT_PROXY_TARGET` 指向实际 Java 端口（默认8080，当前本机完整后端容器为8081）。
+3. 运行 `pnpm dev` 并打开 `/#/backend-lab`。管理员凭证在后端本机 `infra/.env` 中。
+
+| 浏览器路径 | 开发目标 | 处理 |
+| --- | --- | --- |
+| `/api/v1/...` | `SPRING_BOOT_PROXY_TARGET` | 保留路径，Java API |
+| `/backend-health` | 同上 | 转为 `/actuator/health` |
+| `/swagger-ui/...`、`/v3/api-docs...` | 同上 | 保留路径，文档与登录共享浏览器源 |
+| 其他 `/api/...` | `API_PROXY_TARGET`，默认3001 | 去掉 `/api` 前缀，Node Mock |
+
+Session Cookie 为 HttpOnly，登录态仅在 Pinia 内存中保存，页面通过 `/auth/me` 恢复；所有写请求先取得 CSRF token，登录和退出后更新。密码、Cookie 与 CSRF token 均不写入 localStorage。完整运行与 Nginx 部署见 [前后端集成说明](docs/backend-integration.md)。
+
+## WKWebView / Hybrid 实验
+
+侧栏与全局搜索提供 Hybrid 入口，或直接打开 `http://localhost:5173/#/hybrid`。页面接收 `window.receiveNativeMessage(message)` 的字符串，并通过 `window.webkit.messageHandlers.nativeBridge.postMessage(text)` 向原生提交消息。
+
+第三阶段通过 `src/utils/nativeBridge.js` 封装 `nativeBridge.call(action, params)`：请求 ID 与 Promise 回调表配对结果，5 秒超时和页面卸载会清理等待项。页面提供设备信息、带参问候、未知方法、调试版超时和并发请求五个练习。
+
+原生定位实验位于 `/#/hybrid/location`，也可从 HybridLab 首页的定位入口打开。点击按钮后，H5 通过 `nativeBridge.call("getLocation", {}, { timeoutMs: 60000 })` 等待 Swift 请求系统授权并执行单次定位，展示经纬度、精度和采样时间；其他调用仍默认等待 5 秒。定位结果只保留在当前页面内存中，不持久化或上传，普通浏览器不会返回模拟坐标。
+
+导航实验位于 `/#/hybrid/navigation`，包含入口、页面 A 和页面 B。实验内的小封装可以选择当前容器的 Vue 路由跳转，或调用 `openWebView` 新建原生容器；输入草稿、计数和 JS 环境标识用于观察生命周期与状态保留。模式只作用于本实验，现有业务导航保持当前行为。
+
+普通浏览器可使用明确标注的“浏览器模拟”观察字符串接收与 Vue 更新；真实联调需要 HybridLab 注册 `nativeBridge` 并加载该地址。字符串提交提示不代表原生已处理，Promise 结果则来自 Native 的结构化响应。完整协议、目录与各实验的手工步骤见 [Hybrid 联调说明](docs/hybrid-integration.md)。
 
 ## 代码组织
 
@@ -81,10 +109,13 @@ src/
   features/tasks/           任务管理与详情
   features/ui-library/      Element Plus 定制、封装与 Ant 对照
   features/tooling/         构建工具实验
+  features/backend/         Spring Boot 控制台、登录、用户表单与消息观察
+  features/hybrid/          WKWebView 双向通信、定位与专用导航实验
   features/interview/       问答、筛选、收藏和自评
   stores/                   任务、外观与学习记录
   composables/              请求取消、防抖等复用逻辑
   services/                 本地异步模拟、校验与任务数据
+  utils/                    独立的 Native Promise 请求与响应工具
   data/                     专题、导航、迁移片段和关联题库
 examples/webpack/           可单独运行的 Webpack 5 + Vue 3 SFC 示例
 scripts/                    模拟 API 与构建产物报告

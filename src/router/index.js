@@ -65,6 +65,58 @@ const routes = [
         component: () => import("@/features/tooling/ToolingView.vue"),
         meta: { title: "Vite / Webpack" }
     },
+    {
+        path: "/hybrid",
+        name: "hybrid-lab",
+        component: () => import("@/features/hybrid/HybridLabView.vue"),
+        meta: { title: "WKWebView 与 Hybrid" }
+    },
+    {
+        // 独立路由会卸载前一个实验页，让各自的 composable 管理 Bridge 入口与等待请求。
+        path: "/hybrid/location",
+        name: "location-lab",
+        component: () => import("@/features/hybrid/LocationLabView.vue"),
+        meta: { title: "原生定位实验" }
+    },
+    {
+        // 只有导航实验使用这一层布局：子页切换时保留 Bridge，页面草稿仍由各个子页自己持有。
+        path: "/hybrid/navigation",
+        component: () => import("@/features/hybrid/navigation/NavigationLabLayout.vue"),
+        meta: { title: "Hybrid 导航实验" },
+        children: [
+            {
+                path: "",
+                name: "hybrid-navigation-home",
+                component: () => import("@/features/hybrid/navigation/NavigationLabHome.vue")
+            },
+            {
+                path: "page-a",
+                name: "hybrid-navigation-a",
+                component: () => import("@/features/hybrid/navigation/NavigationDemoPage.vue"),
+                props: { page: "a" },
+                meta: { title: "导航实验 · 页面 A" }
+            },
+            {
+                path: "page-b",
+                name: "hybrid-navigation-b",
+                component: () => import("@/features/hybrid/navigation/NavigationDemoPage.vue"),
+                props: { page: "b" },
+                meta: { title: "导航实验 · 页面 B" }
+            }
+        ]
+    },
+    {
+        path: "/backend-lab",
+        name: "backend-lab",
+        component: () => import("@/features/backend/BackendLabView.vue"),
+        meta: { title: "后端业务控制台" }
+    },
+    {
+        path: "/backend-demo",
+        name: "backend-demo",
+        component: () => import("@/features/backend/BackendDemoView.vue"),
+        meta: { title: "后端接口联调" }
+    },
     // 子路由渲染到 RouterPlayground 内部的第二层 RouterView；父子记录可以同时匹配。
     // children 的相对路径拼在 /routing-demo 后；切换子页时保留父布局与草稿。
     {

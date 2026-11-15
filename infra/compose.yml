@@ -1,0 +1,23 @@
+# 与 Spring Boot 的 Compose 分开管理：本项目只启动 Vue 静态页面服务。
+name: vue-lab
+services:
+    web:
+        build:
+            context: ..
+        restart: unless-stopped
+        ports:
+            - "127.0.0.1:${VUE_LAB_HTTP_PORT:-8088}:80"
+        networks:
+            - backend
+        healthcheck:
+            # 这里只验证前端静态页面可用；后端依赖状态从 /backend-health 单独查看。
+            test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/index.html"]
+            interval: 10s
+            timeout: 3s
+            retries: 5
+networks:
+    backend:
+        # 先在 springboot-lab 执行 ./scripts/lab.py deploy，创建此网络和 app 服务。
+        # external 表示本项目不会创建或删除后端网络，也不会管理数据库数据卷。
+        external: true
+        name: learning-lab_default

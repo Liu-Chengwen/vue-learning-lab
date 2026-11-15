@@ -242,7 +242,7 @@ interface DataTableProps<Row extends { id: string }> {
                                 >警告提示</ElButton
                             ></div
                         ><ElButton @click="dialogOpen = true">打开定制弹窗</ElButton
-                        ><ElButton @click="drawerOpen = true">打开信息抽屉</ElButton
+                        ><ElButton @click="drawerOpen = true" style="margin-left: 0px">打开信息抽屉</ElButton
                         ><div class="callout"
                             ><strong>组件库解决通用交互，业务组件表达具体需求</strong
                             ><p>完整工作台还处理了字段校验、编辑取消、分页、选择、失败恢复和持久化。</p></div

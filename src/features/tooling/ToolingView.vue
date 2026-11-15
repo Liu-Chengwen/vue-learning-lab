@@ -71,11 +71,12 @@ const graph = {
     "lazyFeature.js（动态）": []
 };
 // 这里只拼接示意 URL，不发送请求；与下面 testProxy 的真实 fetch 分开观察。
-const proxyResult = computed(() =>
-    proxyPath.value.startsWith("/api/") || proxyPath.value === "/api"
+const proxyResult = computed(() => {
+    if (/^\/api\/v1(?:\/|$)/.test(proxyPath.value)) return `http://127.0.0.1:8080${proxyPath.value}`;
+    return proxyPath.value.startsWith("/api/") || proxyPath.value === "/api"
         ? `http://127.0.0.1:3001${proxyPath.value.replace(/^\/api/, "") || "/"}`
-        : "未命中 /api 代理规则：按原路径请求开发服务"
-);
+        : "未命中 /api 代理规则：按原路径请求开发服务";
+});
 
 // 以下大小仅为教学模型，不能作为当前项目的真实构建结果。
 const chunkModel = computed(() => {
@@ -310,9 +311,13 @@ onBeforeUnmount(() => proxyController?.abort());
                         ><label class="field"
                             >浏览器请求路径<input v-model="proxyPath" class="control" placeholder="/api/tasks" /></label
                         ><div class="proxy-target"
-                            ><span>开发服务匹配 /api 后转发至</span><code>{{ proxyResult }}</code></div
+                            ><span>按默认开发代理规则转发至</span><code>{{ proxyResult }}</code></div
                         >><pre class="code-block"><code>server: {
     proxy: {
+        "^/api/v1(?:/|$)": {
+            target: "http://127.0.0.1:8080",
+            changeOrigin: true
+        },
         "/api": {
             target: "http://127.0.0.1:3001",
             changeOrigin: true,
@@ -321,8 +326,8 @@ onBeforeUnmount(() => proxyController?.abort());
     }
 }</code></pre
                         ><p class="muted"
-                            >主项目已配置这条开发代理。任务工作台仍使用本地模拟服务；下面的按钮则请求独立演示
-                            API，生产代理需要另外部署。</p
+                            >模型使用默认目标：/api/v1 保留路径转到 Java，其余 /api 去掉前缀转到 Node Mock。 实际目标以
+                            vite.config.js 和本机环境配置为准，生产代理需要另外部署。</p
                         ></div
                     ></div
                 ></div

@@ -1,8 +1,9 @@
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { mount, flushPromises } from "@vue/test-utils";
 import { createPinia } from "pinia";
 import { createRouter, createMemoryHistory } from "vue-router";
 import App from "../src/App.vue";
+import { backendApi, BackendApiError } from "../src/services/backendLabService";
 import { router as projectRouter } from "../src/router";
 import { learningPlugin } from "../src/plugins/learningPlugin";
 
@@ -20,6 +21,9 @@ describe("应用入口与路由集成", () => {
         // 复用真实路由记录，仅替换内存 history，避免测试导航改变实际浏览器 hash。
         const router = createRouter({ history: createMemoryHistory(), routes: projectRouter.options.routes });
         const errors = [];
+        // 路由集成只验证页面装配；真实认证协议由后端控制台专用测试覆盖。
+        vi.spyOn(backendApi, "me").mockRejectedValue(new BackendApiError(401, { message: "请先登录" }));
+        vi.spyOn(backendApi, "health").mockResolvedValue({ status: "UP" });
         await router.push("/");
         wrapper = mount(App, {
             attachTo: document.body,
@@ -31,6 +35,9 @@ describe("应用入口与路由集成", () => {
         const paths = [
             "/",
             "/tasks",
+            "/backend-demo",
+            "/backend-lab",
+            "/hybrid",
             "/tasks/task-101",
             "/ui-library",
             "/migration",

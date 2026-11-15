@@ -50,6 +50,8 @@ pnpm mock:api
 
 通过运行中的 Vite 或 Webpack 开发服务访问 `/api/health`、`/api/tasks`。代理去掉 `/api` 后转发到 `http://127.0.0.1:3001`。页面按钮实际请求 health 接口，下方路径模型只做示意。
 
+主应用 `/#/backend-demo` 保留问候接口练习，`/#/backend-lab` 是真实登录、用户管理与消息观察控制台。Vite 优先将 `/api/v1` 及其子路径转到 `SPRING_BOOT_PROXY_TARGET`（默认 `http://127.0.0.1:8080`），保留完整路径；其余 `/api` 请求沿用 Node Mock 代理和前缀移除。修改 `.env.local` 后重启 Vite。Webpack 对照应用继续使用原来的 Node Mock 配置。
+
 工作台的任务服务在浏览器本地执行，不依赖该 Node 接口；额外服务用于验证真实开发代理。
 
 DefinePlugin 显式替换示例常量，不会自动读取所有 .env。VITE_ 表示允许进入客户端，不能当成密钥保护机制。开发代理属于开发服务，生产需要自己的请求入口配置。
@@ -63,3 +65,5 @@ Webpack 从入口建立依赖图。vue-loader 处理 SFC，css-loader 处理 CSS
 性能比较固定项目、依赖、模式和缓存条件。页面流程及虚构体积模型用于理解策略，实际体积和速度以测量为准。
 
 官方阅读：[Vite 8](https://vite.dev/blog/announcing-vite8)、[Webpack 概念](https://webpack.js.org/concepts/)、[Webpack HMR](https://webpack.js.org/concepts/hot-module-replacement/)。
+
+控制台的 Session/CSRF 调用及 Swagger 文档都使用浏览器同源路径；`/backend-health` 单独转发到 Java 健康检查，`/swagger-ui` 与 `/v3/api-docs` 保留路径转发。Nginx 生产方案及两工程边界见 [前后端集成说明](backend-integration.md)。

@@ -130,3 +130,23 @@
 - 测试关注组件协议、草稿/状态隔离、竞态/取消、类与 API 语义、源码入口连通性；CSS 尺寸、焦点、动画和 HMR 仍需要浏览器实际观察。
 
 设计草案是目标与取舍记录，本表是当前实现范围。新增或调整实验时，应同步更新元数据、源码入口、本表和对应问答。
+
+## Spring Boot 全栈业务控制台
+
+`/#/backend-lab` 是真实 Java API 的 Vue 客户端。`features/backend/` 使用 Element Plus、SearchPanel、DataTable 实现登录注册、用户分页筛选与管理员 CRUD，以及审计/Outbox/通知观察；`stores/backendAuth.js` 共享内存登录身份，`services/backendLabService.js` 管理同源HTTP、Session与CSRF。离开页面和身份切换会取消或作废旧请求。后端事务、Redis和RabbitMQ的实现归相邻springboot-lab，本项目提供操作和观察入口。`/#/backend-demo`保留最初的公开问候接口练习。
+
+## WKWebView / Hybrid 通信
+
+| 知识点 | 路由 | 主要源码 | 深度与边界 |
+| --- | --- | --- | --- |
+| Native → H5 字符串接收、Vue 响应式展示 | `/hybrid` | `src/features/hybrid/HybridLabView.vue`、`useNativeBridge.js` | H5 已实现全局入口的挂载、卸载和消息展示；真正 `evaluateJavaScript` 调用需在 HybridLab 中联调 |
+| H5 → Native 字符串提交 | `/hybrid` | `src/features/hybrid/useNativeBridge.js` | 检查 `nativeBridge.postMessage`，处理无通道与同步异常；提交成功不代表 Native 已处理 |
+| 浏览器模拟、通信记录与清理 | `/hybrid` | `src/features/hybrid/HybridLabView.vue`、`useNativeBridge.js` | 模拟接收有明确标记，不伪造 WebKit；保留最近 30 条会话日志，离开页面清理全局入口 |
+| Promise 请求、响应与并发匹配 | `/hybrid` | `src/utils/nativeBridge.js`、`src/features/hybrid/useNativeBridge.js` | 请求 ID 和 pending 回调表匹配结果，成功、失败、5 秒超时及卸载均清理等待项；不实现就绪握手 |
+| 第三阶段五个练习 | `/hybrid` | `src/features/hybrid/HybridLabView.vue`、对应 composable | 设备信息、带参问候、未知方法、调试版不回复分支及 Promise.all 并发；真实数据来自配套 HybridLab |
+| Swift 原生能力与定位授权 | `/hybrid/location` | `src/features/hybrid/LocationLabView.vue`、`useLocation.js` | H5 经 Promise Bridge 调用 getLocation，Swift 申请使用期间授权并单次定位；展示经纬度、米制精度和 ISO 8601 时间，接受近似位置，不持久化或上传 |
+| 每次调用的超时与定位清理 | `/hybrid/location` | `src/utils/nativeBridge.js`、对应 composable | 定位等待 60 秒，其余调用默认 5 秒；Native 总期限为 45 秒，包含授权等待。H5 卸载清理等待，Native 页面退出、整页导航或期限到达清理定位 |
+| 单容器路由与多容器导航 | `/hybrid/navigation`、`/hybrid/navigation/page-a`、`/hybrid/navigation/page-b` | `src/features/hybrid/navigation/` | 局部封装选择 Router 或 `openWebView`，模式仅作用于实验；Native 校验目标并创建新容器，原生返回关闭容器，不接管全站导航 |
+| 两层导航历史、页面状态与 JS 环境 | 导航实验三个页面 | `NavigationLabLayout.vue`、`NavigationLabHome.vue`、`NavigationDemoPage.vue`、`useHybridNavigation.js` | 页面草稿和计数比较 SPA 重建与旧容器保留；JS 环境标识比较同一运行环境和新 WebView，刷新也会变化；H5 路由返回与 Native pop 分开，未实现业务状态跨容器同步 |
+
+前一阶段的字符串通信继续保留，第三阶段在同一个 nativeBridge 上增加结构化请求与响应。配套 HybridLab 提供设备信息、问候、定位、打开新容器及错误分发；所有 Bridge 消息均限制主框架和配置的网页来源（协议、主机、有效端口）。bridgeReady 握手、跨页面恢复未完成请求与完整生产权限策略留待后续课程。浏览器模拟与 H5 自动化测试不能替代 iOS 实际联调；模拟器定位也是模拟数据。接入、通信练习、定位与导航手工步骤见 [Hybrid 联调说明](hybrid-integration.md)。

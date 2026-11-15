@@ -1,0 +1,7 @@
+# 默认不传源码、node_modules、本地环境变量和 Git 数据到 Docker 构建上下文。
+**
+!Dockerfile
+!infra/
+!infra/nginx.conf
+!dist/
+!dist/**

@@ -82,6 +82,11 @@ export const flatLessons = navGroups.flatMap((group) =>
 export const searchEntries = [
     { title: "学习总览", category: "工作台", path: "/" },
     { title: "任务工作台", category: "业务实践", path: "/tasks" },
+    { title: "WKWebView 与 Hybrid", category: "iOS 混合开发", path: "/hybrid" },
+    { title: "原生定位 · getLocation", category: "iOS 混合开发", path: "/hybrid/location" },
+    { title: "Hybrid 导航 · 单容器与多容器", category: "iOS 混合开发", path: "/hybrid/navigation" },
+    { title: "后端接口联调", category: "全栈实践", path: "/backend-demo" },
+    { title: "后端业务控制台", category: "全栈实践", path: "/backend-lab" },
     { title: "Element Plus 应用与定制", category: "组件库", path: "/ui-library" },
     { title: "Vue 2 → Vue 3 迁移对照", category: "迁移", path: "/migration" },
     { title: "面试复习", category: "面试", path: "/interview" },
